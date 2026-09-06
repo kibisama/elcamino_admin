@@ -26,6 +26,8 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import GroupIcon from "@mui/icons-material/Group";
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import DescriptionIcon from "@mui/icons-material/Description";
 import GestureIcon from "@mui/icons-material/Gesture";
 
 import DashboardSidebarContext from "@/contexts/DashboardSidebarContext";
@@ -365,9 +367,7 @@ export default function Sidebar({
       }
 
       const drawerWidthTransitionTimeout = setTimeout(() => {
-        startTransition(() => {
-          setIsFullyExpanded(true);
-        });
+        setIsFullyExpanded(true);
       }, drawerEnteringDuration);
 
       return () => clearTimeout(drawerWidthTransitionTimeout);
@@ -390,9 +390,7 @@ export default function Sidebar({
       }
 
       const drawerWidthTransitionTimeout = setTimeout(() => {
-        startTransition(() => {
-          setIsFullyCollapsed(true);
-        });
+        setIsFullyCollapsed(true);
       }, drawerLeavingDuration);
 
       return () => clearTimeout(drawerWidthTransitionTimeout);
@@ -503,11 +501,25 @@ export default function Sidebar({
               }
             />
             <PageItem
-              id="pickups"
-              title="Pickups"
+              id="delivery-groups"
+              title="Delivery Groups"
+              icon={<Diversity3Icon />}
+              href="/delivery-groups"
+              selected={!!matchPath("/delivery-groups", pathname)}
+            />
+            <PageItem
+              id="pickup"
+              title="Pickup"
               icon={<GestureIcon />}
-              href="/pickups"
-              selected={!!matchPath("/pickups", pathname)}
+              href="/pickup"
+              selected={!!matchPath("/pickup", pathname)}
+            />
+            <PageItem
+              id="pickup-logs"
+              title="Pickup Logs"
+              icon={<DescriptionIcon />}
+              href="/pickup-logs"
+              selected={!!matchPath("/pickup-logs", pathname)}
             />
             <DividerItem />
           </List>

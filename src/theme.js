@@ -7,7 +7,7 @@ const theme = createTheme({
   colorSchemes: {
     light: {
       palette: {
-        background: { default: "#fafafa" },
+        background: { default: "#fafafa", paper: "#eeeeee" },
       },
     },
     dark: {
