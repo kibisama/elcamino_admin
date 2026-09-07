@@ -65,19 +65,23 @@ export function startSystemMonitor() {
 
     systemStatus.setOnline(online);
 
-    try {
-      await fetch(
-        `http://localhost:${process.env.PORT || 4000}/api/realtime/webhook`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ type: "HEALTH", online }),
-          cache: "no-store",
-        },
-      );
-    } catch (error) {
-      //
-    }
+    fetchWebhook({ type: "HEALTH", online });
   }, 1000);
   started = true;
+}
+
+export async function fetchWebhook(payload) {
+  try {
+    await fetch(
+      `http://localhost:${process.env.PORT || 4000}/api/realtime/webhook`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        cache: "no-store",
+      },
+    );
+  } catch (error) {
+    //
+  }
 }

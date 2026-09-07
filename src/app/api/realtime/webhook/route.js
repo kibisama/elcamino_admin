@@ -5,11 +5,10 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request) {
   try {
-    const { type, online } = await request.json();
+    const payload = await request.json();
+    if (payload.type === "HEALTH") systemStatus.setOnline(online);
 
-    systemStatus.setOnline(online);
-
-    broadcast({ type, online });
+    broadcast(payload);
 
     return NextResponse.json({ success: true });
   } catch (error) {
