@@ -6,7 +6,7 @@ import PickupLogDataGrid from "./_components/PickupLogDataGrid";
 
 export default async function PickupLogsPage({ searchParams }) {
   const params = await searchParams;
-  let data;
+  let data = [];
   if (params.rxNumber || params.patientId) {
     data = await search(params);
   }
@@ -24,7 +24,7 @@ export default async function PickupLogsPage({ searchParams }) {
         </>
       }
     >
-      <PickupLogDataGrid data={data ?? []} />
+      <PickupLogDataGrid data={data} />
     </PageContainer>
   );
 }

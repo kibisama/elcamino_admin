@@ -3,9 +3,15 @@ import PageContainer from "../_components/PageContainer";
 import DeliveryLogDataGrid from "./_components/DeliveryLogDataGrid";
 import SelectFilter from "../_components/SelectFilter";
 import DateFilter from "../_components/DateFilter";
+import { searchLogs } from "@/services/deliveries";
 
-export default async function DeliveryLogsPage() {
+export default async function DeliveryLogsPage({ searchParams }) {
   const stations = await getAll();
+  const params = await searchParams;
+  let data = [];
+  if (params.invoiceCode || params.date) {
+    data = await searchLogs(params);
+  }
   return (
     <PageContainer
       title="Delivery Logs"
@@ -24,7 +30,7 @@ export default async function DeliveryLogsPage() {
         </>
       }
     >
-      <DeliveryLogDataGrid data={[]} />
+      <DeliveryLogDataGrid data={data} />
     </PageContainer>
   );
 }

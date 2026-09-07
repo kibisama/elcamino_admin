@@ -3,7 +3,7 @@
 import * as React from "react";
 import dayjs from "dayjs";
 import { DataGrid, GridActionsCellItem, gridClasses } from "@mui/x-data-grid";
-import BackspaceIcon from "@mui/icons-material/Backspace";
+import PrintIcon from "@mui/icons-material/Print";
 
 const rowHeight = 48;
 
@@ -87,7 +87,7 @@ export default function DeliveryLogDataGrid({ data }) {
         align: "center",
         resizable: false,
         getActions: (params) => (
-          <GridActionsCellItem key="return-item" icon={<BackspaceIcon />} />
+          <GridActionsCellItem key="return-item" icon={<PrintIcon />} />
         ),
       },
     ],
