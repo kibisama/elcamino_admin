@@ -3,7 +3,7 @@ import { search } from "@/services/pickups";
 import PageContainer from "../_components/PageContainer";
 import TextFilter from "../_components/TextFilter";
 import PatientAutocomplete from "../_components/PatientAutoComplete";
-import PickupDataGrid from "./_components/PickupDataGrid";
+import PickupLogDataGrid from "./_components/PickupLogDataGrid";
 
 export default async function PickupLogsPage({ searchParams }) {
   const params = await searchParams;
@@ -26,7 +26,7 @@ export default async function PickupLogsPage({ searchParams }) {
       }
     >
       <Box sx={{ flex: 1, width: "100%" }}>
-        <PickupDataGrid data={data ?? []} />
+        <PickupLogDataGrid data={data ?? []} />
       </Box>
     </PageContainer>
   );

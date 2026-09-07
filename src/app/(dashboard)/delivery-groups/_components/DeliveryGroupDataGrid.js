@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 const rowHeight = 48;
 
-export default function StationDataGrid({ data }) {
+export default function DeliveryGroupDataGrid({ data }) {
   const columns = React.useMemo(
     () => [
       {
@@ -56,11 +56,11 @@ export default function StationDataGrid({ data }) {
       {
         field: "actions",
         type: "actions",
-        width: 80,
+        width: 60,
         align: "center",
         resizable: false,
         getActions: (params) => (
-          <GridActionsCellItem key="print-pickup" icon={<EditIcon />} />
+          <GridActionsCellItem key="edit-station" icon={<EditIcon />} />
         ),
       },
     ],
@@ -72,8 +72,12 @@ export default function StationDataGrid({ data }) {
       rows={data}
       rowHeight={rowHeight}
       sx={{
+        maxHeight: rowHeight * 100,
         [`& .${gridClasses.row}:hover`]: {
           backgroundColor: "inherit",
+        },
+        "& .MuiDataGrid-columnHeader--last .MuiDataGrid-columnSeparator": {
+          display: "none",
         },
       }}
       autoPageSize

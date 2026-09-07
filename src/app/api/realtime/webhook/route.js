@@ -1,4 +1,4 @@
-import { systemStatus, broadcast } from "@/lib/health";
+import { systemStatus, broadcast } from "@/lib/realtime";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

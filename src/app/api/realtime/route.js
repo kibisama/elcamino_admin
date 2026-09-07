@@ -1,4 +1,4 @@
-import { addClient, delClient, systemStatus } from "@/lib/health";
+import { addClient, delClient, systemStatus } from "@/lib/realtime";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

@@ -1,25 +1,38 @@
 "use client";
 
 import * as React from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function HealthDialog() {
+export default function SystemMonitor() {
   const [open, setOpen] = React.useState(false);
 
+  const pathname = usePathname();
+  const router = useRouter();
+  const pathnameRef = React.useRef(pathname);
   React.useEffect(() => {
-    const source = new EventSource("/api/health");
-    source.onmessage = (event) => {
+    pathnameRef.current = pathname;
+  }, [pathname]);
+
+  React.useEffect(() => {
+    const es = new EventSource("/api/realtime");
+    es.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.type === "HEALTH") setOpen(!data.online);
+      switch (data.type) {
+        case "HEALTH":
+          return setOpen(!data.online);
+        case "REVALIDATE":
+          if (data.path === pathnameRef.current) return router.refresh();
+      }
     };
-    source.onerror = () => {
+    es.onerror = () => {
       setOpen(true);
     };
-    return () => source.close();
-  }, []);
+    return () => es.close();
+  }, [router]);
 
   return (
     <Dialog open={open}>

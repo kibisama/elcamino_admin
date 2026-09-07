@@ -30,8 +30,8 @@ export function delClient(client) {
 }
 
 export const broadcast = (payload) => {
+  const message = `data: ${JSON.stringify(payload)}\n\n`;
   for (const client of clients) {
-    const message = `data: ${JSON.stringify(payload)}\n\n`;
     try {
       client.enqueue(message);
     } catch {
@@ -67,7 +67,7 @@ export function startSystemMonitor() {
 
     try {
       await fetch(
-        `http://localhost:${process.env.PORT || 4000}/api/health/webhook`,
+        `http://localhost:${process.env.PORT || 4000}/api/realtime/webhook`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

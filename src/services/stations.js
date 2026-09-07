@@ -5,3 +5,8 @@ export async function getAll() {
   const res = await fetch(url);
   return res.json();
 }
+
+export async function getStationInfo(invoiceCode) {
+  const res = await fetch(`${BASE_URL}/api/stations/${invoiceCode}`);
+  return res.json();
+}

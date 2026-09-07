@@ -1,4 +1,4 @@
-import { startSystemMonitor } from "@/lib/health";
+import { startSystemMonitor } from "@/lib/realtime";
 
 export async function register() {
   startSystemMonitor();

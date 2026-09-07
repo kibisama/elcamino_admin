@@ -5,6 +5,6 @@ export async function search(params) {
   for (const key in params) {
     url.searchParams.append(key, params[key]);
   }
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url);
   return res.json();
 }

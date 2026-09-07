@@ -508,6 +508,13 @@ export default function Sidebar({
               selected={!!matchPath("/delivery-groups", pathname)}
             />
             <PageItem
+              id="delivery-logs"
+              title="Delivery Logs"
+              icon={<DescriptionIcon />}
+              href="/delivery-logs"
+              selected={!!matchPath("/delivery-logs", pathname)}
+            />
+            <PageItem
               id="pickup"
               title="Pickup"
               icon={<GestureIcon />}

@@ -8,15 +8,14 @@ import PrintIcon from "@mui/icons-material/Print";
 
 const rowHeight = 48;
 
-export default function PickupDataGrid({ data }) {
+export default function PickupLogDataGrid({ data }) {
   const searchParams = useSearchParams();
   const qRxNumber = searchParams.get("rxNumber");
   const columns = React.useMemo(
     () => [
       {
         field: "rxNumber",
-        headerName: "Rx Number",
-        type: "number",
+        headerName: "Rx #",
         width: 100,
         headerAlign: "center",
         align: "center",
@@ -85,7 +84,7 @@ export default function PickupDataGrid({ data }) {
       {
         field: "actions",
         type: "actions",
-        width: 80,
+        width: 60,
         align: "center",
         resizable: false,
         getActions: (params) => (
@@ -101,8 +100,12 @@ export default function PickupDataGrid({ data }) {
       rows={data}
       rowHeight={rowHeight}
       sx={{
+        maxHeight: rowHeight * 100,
         [`& .${gridClasses.row}:hover`]: {
           backgroundColor: "inherit",
+        },
+        "& .MuiDataGrid-columnHeader--last .MuiDataGrid-columnSeparator": {
+          display: "none",
         },
         [`& .rowspan`]: {
           display: "flex",
