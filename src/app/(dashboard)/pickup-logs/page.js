@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { search } from "@/services/pickups";
 import PageContainer from "../_components/PageContainer";
 import TextFilter from "../_components/TextFilter";
@@ -25,9 +24,7 @@ export default async function PickupLogsPage({ searchParams }) {
         </>
       }
     >
-      <Box sx={{ flex: 1, width: "100%" }}>
-        <PickupLogDataGrid data={data ?? []} />
-      </Box>
+      <PickupLogDataGrid data={data ?? []} />
     </PageContainer>
   );
 }

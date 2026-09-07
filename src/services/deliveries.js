@@ -20,3 +20,17 @@ export async function cancelItem(id, version) {
   });
   return res.ok;
 }
+
+export async function createLog(invoiceCode, itemRows) {
+  const url = new URL(`${BASE_URL}/api/deliveries/logs/${invoiceCode}`);
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      items: itemRows.map((row) => ({ id: row.id, version: row.version })),
+    }),
+  });
+  return res.json();
+}

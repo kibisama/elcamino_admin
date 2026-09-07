@@ -23,7 +23,7 @@ export default function DateFilter() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        value={queryDate ? dayjs(queryDate) : dayjs()}
+        value={queryDate ? dayjs(queryDate) : null}
         onChange={handleDateChange}
         slotProps={{
           textField: { size: "small", sx: { width: "24ch" } },

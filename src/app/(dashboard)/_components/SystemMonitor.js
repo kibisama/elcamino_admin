@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -11,11 +11,13 @@ export default function SystemMonitor() {
   const [open, setOpen] = React.useState(false);
 
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const pathnameRef = React.useRef(pathname);
+  const urlRef = React.useRef("");
   React.useEffect(() => {
-    pathnameRef.current = pathname;
-  }, [pathname]);
+    const qs = searchParams.toString();
+    urlRef.current = qs ? `${pathname}?${qs}` : pathname;
+  }, [pathname, searchParams]);
 
   React.useEffect(() => {
     const es = new EventSource("/api/realtime");
@@ -25,7 +27,7 @@ export default function SystemMonitor() {
         case "HEALTH":
           return setOpen(!data.online);
         case "REVALIDATE":
-          if (data.path === pathnameRef.current) return router.refresh();
+          if (data.path === urlRef.current) return router.refresh();
       }
     };
     es.onerror = () => {

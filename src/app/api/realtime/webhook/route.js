@@ -6,9 +6,14 @@ export const dynamic = "force-dynamic";
 export async function POST(request) {
   try {
     const payload = await request.json();
-    if (payload.type === "HEALTH") systemStatus.setOnline(online);
 
-    broadcast(payload);
+    if (payload.type === "HEALTH") systemStatus.setOnline(payload.online);
+
+    if (Array.isArray(payload)) {
+      payload.forEach((v) => broadcast(v));
+    } else {
+      broadcast(payload);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

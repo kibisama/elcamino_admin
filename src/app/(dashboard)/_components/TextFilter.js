@@ -8,7 +8,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 export default function TextFilter({
   placeholder = "Search…",
   queryKey = "search",
-  sx = {},
+  sx,
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
