@@ -37,7 +37,7 @@ export default function DeliveryDataGrid({ data, invoiceCode }) {
         headerAlign: "center",
         align: "center",
         valueGetter: (v) => new Date(v),
-        valueFormatter: (v) => dayjs(v).format("M. DD. YY"),
+        valueFormatter: (v) => dayjs(v).format("M. D. YY"),
       },
       {
         field: "patient",

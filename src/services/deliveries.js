@@ -21,6 +21,18 @@ export async function cancelItem(id, version) {
   return res.ok;
 }
 
+export async function returnItem(id, version) {
+  const url = new URL(`${BASE_URL}/return/${id}`);
+  const res = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ version }),
+  });
+  return res.json();
+}
+
 export async function createLog(invoiceCode, itemRows) {
   const url = new URL(`${BASE_URL}/logs/${invoiceCode}`);
   const res = await fetch(url, {
@@ -41,5 +53,16 @@ export async function searchLogs(params) {
     url.searchParams.append(key, params[key]);
   }
   const res = await fetch(url);
+  return res.json();
+}
+
+export async function getLogItems(id) {
+  const url = new URL(`${BASE_URL}/logs/${id}`);
+  const res = await fetch(url, {
+    cache: "force-cache",
+    next: {
+      tags: [`delivery-log-items-${id}`],
+    },
+  });
   return res.json();
 }

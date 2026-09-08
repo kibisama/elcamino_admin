@@ -1,82 +1,98 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import dayjs from "dayjs";
 import { DataGrid, GridActionsCellItem, gridClasses } from "@mui/x-data-grid";
-import PrintIcon from "@mui/icons-material/Print";
-import FindInPageIcon from "@mui/icons-material/FindInPage";
+import BackspaceIcon from "@mui/icons-material/Backspace";
+import { handleReturnItem } from "@/actions/deliveries";
 
 const rowHeight = 48;
 
-export default function DeliveryLogDataGrid({ data }) {
+export default function DeliveryLogItemDataGrid({ data, logId }) {
   const columns = React.useMemo(
     () => [
       {
-        field: "date",
-        headerName: "Date",
+        field: "rxNumber",
+        headerName: "Rx #",
+        type: "number",
+        width: 90,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "rxDate",
+        headerName: "Rx Date",
         type: "date",
-        width: 140,
+        width: 100,
         headerAlign: "center",
         align: "center",
         valueGetter: (v) => new Date(v),
         valueFormatter: (v) => dayjs(v).format("M. D. YY"),
       },
       {
-        field: "stationDisplayName",
-        headerName: "Delivery Group",
+        field: "patient",
+        headerName: "Patient",
+        width: 180,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "drugName",
+        headerName: "Drug Name",
         flex: 1,
         headerAlign: "center",
         align: "center",
       },
       {
-        field: "session",
-        headerName: "Session",
-        width: 140,
+        field: "rxQty",
+        headerName: "Qty",
+        width: 60,
         headerAlign: "center",
         align: "center",
       },
       {
-        field: "count",
-        headerName: "Count",
-        type: "number",
+        field: "plan",
+        headerName: "Plan",
+        width: 80,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "patPay",
+        headerName: "Copay",
+        width: 80,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "returnDate",
+        headerName: "Returned",
+        type: "date",
         width: 100,
         headerAlign: "center",
         align: "center",
-      },
-      {
-        field: "due",
-        headerName: "Due",
-        type: "number",
-        width: 120,
-        headerAlign: "center",
-        align: "center",
-      },
-      {
-        field: "status",
-        headerName: "Status",
-        width: 140,
-        headerAlign: "center",
-        align: "center",
+        valueGetter: (v) => v && new Date(v),
+        valueFormatter: (v) => v && dayjs(v).format("M. D. YY"),
       },
       {
         field: "actions",
         type: "actions",
-        width: 100,
+        width: 60,
         align: "center",
         resizable: false,
-        getActions: (params) => [
+        getActions: (params) => (
           <GridActionsCellItem
-            key="see-list"
-            component={Link}
-            href={`/delivery-logs/${params.id}`}
-            icon={<FindInPageIcon />}
-          />,
-          <GridActionsCellItem key="return-item" icon={<PrintIcon />} />,
-        ],
+            disabled={!!params.row.returnDate}
+            key="return-item"
+            icon={<BackspaceIcon />}
+            onClick={() =>
+              handleReturnItem(params.id, params.row.version, logId)
+            }
+          />
+        ),
       },
     ],
-    [],
+    [logId],
   );
   return (
     <DataGrid
