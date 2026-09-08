@@ -10,7 +10,7 @@ export default async function DeliveryLogsPage({ searchParams }) {
   const stations = await getAll();
   const params = await searchParams;
   let data = [];
-  if (params.invoiceCode || params.date) {
+  if (params.rxNumber || params.invoiceCode || params.date) {
     data = await searchLogs(params);
   }
   return (
