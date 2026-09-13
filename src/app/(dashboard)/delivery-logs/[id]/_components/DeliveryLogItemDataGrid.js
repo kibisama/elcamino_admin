@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useSearchParams } from "next/navigation";
 import dayjs from "dayjs";
 import { DataGrid, GridActionsCellItem, gridClasses } from "@mui/x-data-grid";
 import BackspaceIcon from "@mui/icons-material/Backspace";
@@ -9,6 +10,8 @@ import { handleReturnItem } from "@/actions/deliveries";
 const rowHeight = 48;
 
 export default function DeliveryLogItemDataGrid({ data, logId }) {
+  const searchParams = useSearchParams();
+  const qRxNumber = searchParams.get("rxNumber");
   const columns = React.useMemo(
     () => [
       {
@@ -18,6 +21,15 @@ export default function DeliveryLogItemDataGrid({ data, logId }) {
         width: 90,
         headerAlign: "center",
         align: "center",
+        renderCell: (params) => (
+          <>
+            {qRxNumber && params.value === qRxNumber ? (
+              <mark>{params.value}</mark>
+            ) : (
+              params.value
+            )}
+          </>
+        ),
       },
       {
         field: "rxDate",

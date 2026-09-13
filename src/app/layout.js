@@ -6,6 +6,7 @@ import {
   InitColorSchemeScript,
   ThemeProvider,
 } from "@mui/material";
+import SystemMonitor from "./(dashboard)/_components/SystemMonitor";
 import { Google_Sans } from "next/font/google";
 
 const googleSans = Google_Sans({
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <SystemMonitor />
             {children}
           </ThemeProvider>
         </AppRouterCacheProvider>

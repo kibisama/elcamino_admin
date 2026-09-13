@@ -9,10 +9,10 @@ import { searchLogs } from "@/services/deliveries";
 export default async function DeliveryLogsPage({ searchParams }) {
   const stations = await getAll();
   const params = await searchParams;
+  const { rxNumber, invoiceCode, date } = params;
   let data = [];
-  if (params.rxNumber || params.invoiceCode || params.date) {
-    data = await searchLogs(params);
-  }
+  if (rxNumber || invoiceCode || date) data = await searchLogs(params);
+
   return (
     <PageContainer
       title="Delivery Logs"
@@ -36,7 +36,7 @@ export default async function DeliveryLogsPage({ searchParams }) {
         </>
       }
     >
-      <DeliveryLogDataGrid data={data} />
+      <DeliveryLogDataGrid data={data} rxNumber={rxNumber} />
     </PageContainer>
   );
 }

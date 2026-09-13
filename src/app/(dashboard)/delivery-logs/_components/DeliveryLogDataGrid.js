@@ -9,7 +9,7 @@ import FindInPageIcon from "@mui/icons-material/FindInPage";
 
 const rowHeight = 48;
 
-export default function DeliveryLogDataGrid({ data }) {
+export default function DeliveryLogDataGrid({ data, rxNumber }) {
   const columns = React.useMemo(
     () => [
       {
@@ -67,16 +67,20 @@ export default function DeliveryLogDataGrid({ data }) {
         resizable: false,
         getActions: (params) => [
           <GridActionsCellItem
-            key="see-list"
+            key="see-log"
             component={Link}
-            href={`/delivery-logs/${params.id}`}
+            href={
+              rxNumber
+                ? `/delivery-logs/${params.id}?rxNumber=${rxNumber}`
+                : `/delivery-logs/${params.id}`
+            }
             icon={<FindInPageIcon />}
           />,
-          <GridActionsCellItem key="return-item" icon={<PrintIcon />} />,
+          <GridActionsCellItem key="print-log" icon={<PrintIcon />} />,
         ],
       },
     ],
-    [],
+    [rxNumber],
   );
   return (
     <DataGrid
